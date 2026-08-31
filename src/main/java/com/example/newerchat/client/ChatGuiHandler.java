@@ -26,7 +26,7 @@ public class ChatGuiHandler {
     private static String readDefaultText(GuiChat gui) {
         try {
             String v = ReflectionHelper.getPrivateValue(
-                    GuiChat.class, gui, "field_146410_g", "defaultInputFieldText");
+                    GuiChat.class, gui, "field_146409_v", "defaultInputFieldText");
             return v == null ? "" : v;
         } catch (Throwable t) {
             return "";
