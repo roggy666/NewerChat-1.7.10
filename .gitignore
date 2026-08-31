@@ -1,0 +1,25 @@
+# Gradle
+.gradle/
+build/
+*.log
+!gradle/wrapper/gradle-wrapper.jar
+
+# RetroFuturaGradle
+run/
+run-*/
+.rfg/
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.classpath
+.project
+.settings/
+bin/
+out/
+
+# OS
+.DS_Store
+Thumbs.db

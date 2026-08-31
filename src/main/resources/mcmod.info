@@ -1,0 +1,15 @@
+[
+  {
+    "modid": "newerchat",
+    "name": "NewerChat",
+    "description": "Modern-style chat input for 1.7.10: live suggestion dropdown, command syntax highlighting, tooltips.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "https://github.com/roggy666/NewerChat-1.7.10",
+    "authorList": ["roggy666"],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]
