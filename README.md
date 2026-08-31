@@ -9,6 +9,8 @@ The dropdown is filled from two sources: client commands / online players comput
 locally, and the server's own `tab-complete` response requested while you type. The
 result feels close to the modern chat without pretending the data model exists.
 
+<img src="docs/screenshot.png" alt="Suggestion dropdown while typing a command" width="360">
+
 ## Features
 
 - Suggestion dropdown above the input line, filtered as you type. The matched
