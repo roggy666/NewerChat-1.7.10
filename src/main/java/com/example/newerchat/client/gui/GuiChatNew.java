@@ -213,7 +213,9 @@ public class GuiChatNew extends GuiChat {
             lastServer = new ArrayList<Suggestion>();
         }
 
-        menu.set(SuggestionProvider.merge(lastServer, lastLocal, lastQuery), lastQuery);
+        List<Suggestion> merged = SuggestionProvider.merge(lastServer, lastLocal, lastQuery);
+        merged = SuggestionProvider.filterByQuery(merged, lastQuery);
+        menu.set(merged, lastQuery);
     }
 
     private void sendServerQuery() {
@@ -258,6 +260,7 @@ public class GuiChatNew extends GuiChat {
         lastServerTokenIndex = tok.index;
 
         List<Suggestion> merged = SuggestionProvider.merge(server, lastLocal, tok.text);
+        merged = SuggestionProvider.filterByQuery(merged, tok.text);
         if (merged.size() > 200) {
             merged = new ArrayList<Suggestion>(merged.subList(0, 200));
         }

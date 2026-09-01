@@ -83,6 +83,21 @@ public final class SuggestionProvider {
                 || candidate.toLowerCase().contains(query.toLowerCase());
     }
 
+    /** Drops suggestions that no longer match what the user has typed for this token. */
+    public static List<Suggestion> filterByQuery(List<Suggestion> list, String query) {
+        if (query == null || query.isEmpty()) {
+            return list;
+        }
+        String q = query.startsWith("/") ? query.substring(1) : query;
+        List<Suggestion> out = new ArrayList<Suggestion>();
+        for (Suggestion s : list) {
+            if (matches(s.insert, query) || matches(s.insert, q) || matches(s.display, q)) {
+                out.add(s);
+            }
+        }
+        return out;
+    }
+
     private static void sortByRelevance(List<Suggestion> list, final String query) {
         final String q = query == null ? "" : query.toLowerCase();
         Collections.sort(list, new Comparator<Suggestion>() {
