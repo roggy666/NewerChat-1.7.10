@@ -12,7 +12,7 @@ import net.minecraftforge.common.MinecraftForge;
 @Mod(
         modid = NewerChat.MODID,
         name = "NewerChat",
-        version = "1.0.0",
+        version = "1.0.2",
         acceptedMinecraftVersions = "[1.7.10]"
 )
 public class NewerChat {

@@ -43,6 +43,8 @@ public class GuiChatNew extends GuiChat {
     private int historyIndex;
     private String historyStash = "";
 
+    private boolean userNavigated = false;
+
     public GuiChatNew(String defaultText) {
         super(defaultText == null ? "" : defaultText);
         this.pendingText = defaultText == null ? "" : defaultText;
@@ -93,16 +95,20 @@ public class GuiChatNew extends GuiChat {
         }
 
         if (key == Keyboard.KEY_RETURN || key == Keyboard.KEY_NUMPADENTER) {
-            sendMessage(field.getText());
-            this.mc.displayGuiScreen(null);
+            if (menu.isVisible() && userNavigated) {
+                acceptSuggestion(menu.getSelected());
+            } else {
+                sendMessage(field.getText());
+                this.mc.displayGuiScreen(null);
+            }
             return;
         }
 
         if (key == Keyboard.KEY_TAB) {
             if (menu.isVisible()) {
-                acceptSuggestion(menu.getSelected());
+                menu.move(isShiftKeyDown() ? -1 : 1);
+                userNavigated = true;
             } else {
-
                 pendingServerQuery = false;
                 refreshLocal();
                 sendServerQuery();
@@ -110,15 +116,12 @@ public class GuiChatNew extends GuiChat {
             return;
         }
 
-        if (menu.isVisible() && (key == Keyboard.KEY_UP || key == Keyboard.KEY_DOWN)) {
-            menu.move(key == Keyboard.KEY_UP ? -1 : 1);
-            return;
-        }
         if (menu.isVisible() && (key == Keyboard.KEY_PRIOR || key == Keyboard.KEY_NEXT)) {
             menu.page(key == Keyboard.KEY_PRIOR ? -1 : 1);
+            userNavigated = true;
             return;
         }
-        if (!menu.isVisible() && (key == Keyboard.KEY_UP || key == Keyboard.KEY_DOWN)) {
+        if (key == Keyboard.KEY_UP || key == Keyboard.KEY_DOWN) {
             navigateHistory(key == Keyboard.KEY_UP ? -1 : 1);
             return;
         }
@@ -197,6 +200,7 @@ public class GuiChatNew extends GuiChat {
 
     private void onEdit() {
         field.dirty = false;
+        userNavigated = false;
         refreshLocal();
         lastEditMs = System.currentTimeMillis();
         pendingServerQuery = NewerChatConfig.queryServer
