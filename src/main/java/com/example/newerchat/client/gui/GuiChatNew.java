@@ -43,7 +43,11 @@ public class GuiChatNew extends GuiChat {
     private int historyIndex;
     private String historyStash = "";
 
-    private boolean userNavigated = false;
+    private boolean cycling = false;
+    private String cycleBefore = "";
+    private String cycleAfter = "";
+    private List<Suggestion> cycleList = new ArrayList<Suggestion>();
+    private int cycleIndex = 0;
 
     public GuiChatNew(String defaultText) {
         super(defaultText == null ? "" : defaultText);
@@ -86,6 +90,7 @@ public class GuiChatNew extends GuiChat {
     @Override
     protected void keyTyped(char typedChar, int key) {
         if (key == Keyboard.KEY_ESCAPE) {
+            cycling = false;
             if (menu.isVisible()) {
                 menu.hide();
             } else {
@@ -95,30 +100,18 @@ public class GuiChatNew extends GuiChat {
         }
 
         if (key == Keyboard.KEY_RETURN || key == Keyboard.KEY_NUMPADENTER) {
-            if (menu.isVisible() && userNavigated) {
-                acceptSuggestion(menu.getSelected());
-            } else {
-                sendMessage(field.getText());
-                this.mc.displayGuiScreen(null);
-            }
+            sendMessage(field.getText());
+            this.mc.displayGuiScreen(null);
             return;
         }
 
         if (key == Keyboard.KEY_TAB) {
-            if (menu.isVisible()) {
-                menu.move(isShiftKeyDown() ? -1 : 1);
-                userNavigated = true;
-            } else {
-                pendingServerQuery = false;
-                refreshLocal();
-                sendServerQuery();
-            }
+            cycleCompletion(isShiftKeyDown() ? -1 : 1);
             return;
         }
 
         if (menu.isVisible() && (key == Keyboard.KEY_PRIOR || key == Keyboard.KEY_NEXT)) {
             menu.page(key == Keyboard.KEY_PRIOR ? -1 : 1);
-            userNavigated = true;
             return;
         }
         if (key == Keyboard.KEY_UP || key == Keyboard.KEY_DOWN) {
@@ -155,6 +148,7 @@ public class GuiChatNew extends GuiChat {
 
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) {
+        cycling = false;
         if (mouseButton == 0 && menu.isVisible()) {
             int row = menu.rowAt(mouseX, mouseY);
             if (row >= 0) {
@@ -200,7 +194,7 @@ public class GuiChatNew extends GuiChat {
 
     private void onEdit() {
         field.dirty = false;
-        userNavigated = false;
+        cycling = false;
         refreshLocal();
         lastEditMs = System.currentTimeMillis();
         pendingServerQuery = NewerChatConfig.queryServer
@@ -268,6 +262,38 @@ public class GuiChatNew extends GuiChat {
             merged = new ArrayList<Suggestion>(merged.subList(0, 200));
         }
         menu.set(merged, tok.text);
+    }
+
+    private void cycleCompletion(int dir) {
+        if (!menu.isVisible() || menu.isEmpty()) {
+            cycling = false;
+            pendingServerQuery = false;
+            refreshLocal();
+            sendServerQuery();
+            return;
+        }
+
+        if (!cycling) {
+            String text = field.getText();
+            ChatSyntax.Tok tok = SuggestionProvider.currentToken(text, field.getCursor());
+            cycleBefore = text.substring(0, tok.start);
+            cycleAfter = text.substring(tok.end);
+            cycleList = new ArrayList<Suggestion>(menu.all());
+            cycleIndex = 0;
+            cycling = true;
+            pendingServerQuery = false;
+        } else {
+            int n = cycleList.size();
+            cycleIndex = ((cycleIndex + dir) % n + n) % n;
+        }
+
+        Suggestion s = cycleList.get(cycleIndex);
+        String tail = cycleAfter.isEmpty() ? " " : cycleAfter;
+        String newText = cycleBefore + s.insert + tail;
+        int newCursor = cycleBefore.length() + s.insert.length() + (cycleAfter.isEmpty() ? 1 : 0);
+        field.setTextAndCursor(newText, newCursor);
+        field.dirty = false;
+        menu.setSelectedAbsolute(cycleIndex);
     }
 
     private void acceptSuggestion(Suggestion suggestion) {
