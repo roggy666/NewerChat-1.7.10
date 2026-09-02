@@ -1,4 +1,4 @@
-package com.example.newerchat.client.suggestion;
+package lol.gzmc.newerchat.client.suggestion;
 
 public final class Suggestion {
 

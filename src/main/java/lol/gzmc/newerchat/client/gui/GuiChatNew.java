@@ -1,15 +1,15 @@
-package com.example.newerchat.client.gui;
+package lol.gzmc.newerchat.client.gui;
 
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.example.newerchat.client.ChatData;
-import com.example.newerchat.client.suggestion.Suggestion;
-import com.example.newerchat.client.suggestion.SuggestionProvider;
-import com.example.newerchat.client.syntax.ChatSyntax;
-import com.example.newerchat.config.NewerChatConfig;
+import lol.gzmc.newerchat.client.ChatData;
+import lol.gzmc.newerchat.client.suggestion.Suggestion;
+import lol.gzmc.newerchat.client.suggestion.SuggestionProvider;
+import lol.gzmc.newerchat.client.syntax.ChatSyntax;
+import lol.gzmc.newerchat.config.NewerChatConfig;
 
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.GuiConfirmOpenLink;

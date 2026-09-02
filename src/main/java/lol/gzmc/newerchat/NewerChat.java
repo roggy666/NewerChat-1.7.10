@@ -1,7 +1,7 @@
-package com.example.newerchat;
+package lol.gzmc.newerchat;
 
-import com.example.newerchat.client.ChatGuiHandler;
-import com.example.newerchat.config.NewerChatConfig;
+import lol.gzmc.newerchat.client.ChatGuiHandler;
+import lol.gzmc.newerchat.config.NewerChatConfig;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
@@ -12,7 +12,7 @@ import net.minecraftforge.common.MinecraftForge;
 @Mod(
         modid = NewerChat.MODID,
         name = "NewerChat",
-        version = "1.0.2",
+        version = "1.0.3",
         acceptedMinecraftVersions = "[1.7.10]"
 )
 public class NewerChat {

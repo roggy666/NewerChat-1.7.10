@@ -1,8 +1,8 @@
-package com.example.newerchat.config;
+package lol.gzmc.newerchat.config;
 
 import java.io.File;
 
-import com.example.newerchat.NewerChat;
+import lol.gzmc.newerchat.NewerChat;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;

@@ -1,11 +1,11 @@
-package com.example.newerchat.client.gui;
+package lol.gzmc.newerchat.client.gui;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.newerchat.client.suggestion.Suggestion;
-import com.example.newerchat.client.suggestion.SuggestionProvider;
-import com.example.newerchat.config.NewerChatConfig;
+import lol.gzmc.newerchat.client.suggestion.Suggestion;
+import lol.gzmc.newerchat.client.suggestion.SuggestionProvider;
+import lol.gzmc.newerchat.config.NewerChatConfig;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;

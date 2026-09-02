@@ -1,7 +1,7 @@
-package com.example.newerchat.client;
+package lol.gzmc.newerchat.client;
 
-import com.example.newerchat.client.gui.GuiChatNew;
-import com.example.newerchat.config.NewerChatConfig;
+import lol.gzmc.newerchat.client.gui.GuiChatNew;
+import lol.gzmc.newerchat.config.NewerChatConfig;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.ReflectionHelper;

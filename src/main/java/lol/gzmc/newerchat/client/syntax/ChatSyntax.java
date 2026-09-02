@@ -1,11 +1,11 @@
-package com.example.newerchat.client.syntax;
+package lol.gzmc.newerchat.client.syntax;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.example.newerchat.client.ChatData;
-import com.example.newerchat.config.NewerChatConfig;
+import lol.gzmc.newerchat.client.ChatData;
+import lol.gzmc.newerchat.config.NewerChatConfig;
 
 public final class ChatSyntax {
 

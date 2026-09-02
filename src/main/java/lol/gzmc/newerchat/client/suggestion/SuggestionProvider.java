@@ -1,4 +1,4 @@
-package com.example.newerchat.client.suggestion;
+package lol.gzmc.newerchat.client.suggestion;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,9 +7,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.example.newerchat.client.ChatData;
-import com.example.newerchat.client.syntax.ChatSyntax;
-import com.example.newerchat.config.NewerChatConfig;
+import lol.gzmc.newerchat.client.ChatData;
+import lol.gzmc.newerchat.client.syntax.ChatSyntax;
+import lol.gzmc.newerchat.config.NewerChatConfig;
 
 public final class SuggestionProvider {
 

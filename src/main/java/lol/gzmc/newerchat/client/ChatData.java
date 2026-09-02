@@ -1,4 +1,4 @@
-package com.example.newerchat.client;
+package lol.gzmc.newerchat.client;
 
 import java.util.ArrayList;
 import java.util.Arrays;
