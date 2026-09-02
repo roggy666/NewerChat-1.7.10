@@ -160,7 +160,7 @@ public class GuiChatNew extends GuiChat {
 
         if (mouseButton == 0) {
             IChatComponent comp = this.mc.ingameGUI.getChatGUI()
-                    .func_146236_a(Mouse.getX(), this.mc.displayHeight - Mouse.getY() - 1);
+                    .func_146236_a(Mouse.getX(), Mouse.getY());
             if (comp != null && handleChatClick(comp)) {
                 return;
             }
@@ -247,13 +247,27 @@ public class GuiChatNew extends GuiChat {
             ChatData.learnServerCommands(results);
         }
 
+        boolean tokenHasNamespace = tok.text.indexOf(':') >= 0;
         List<Suggestion> server = new ArrayList<Suggestion>();
+        java.util.Set<String> seen = new java.util.HashSet<String>();
         for (String r : results) {
             if (r == null || r.isEmpty()) {
                 continue;
             }
             String insert = (commandName && !r.startsWith("/")) ? "/" + r : r;
-            server.add(new Suggestion(insert, null));
+            if (seen.add(insert.toLowerCase())) {
+                server.add(new Suggestion(insert, null));
+            }
+            // when the user isn't typing a namespace, also offer the bare "path" form
+            if (!commandName && !tokenHasNamespace) {
+                int c = r.indexOf(':');
+                if (c > 0 && c < r.length() - 1) {
+                    String bare = r.substring(c + 1);
+                    if (seen.add(bare.toLowerCase())) {
+                        server.add(new Suggestion(bare, null));
+                    }
+                }
+            }
         }
 
         lastServer = server;
@@ -429,7 +443,7 @@ public class GuiChatNew extends GuiChat {
     @SuppressWarnings("unchecked")
     private void drawComponentHover(int mouseX, int mouseY) {
         IChatComponent hovered = this.mc.ingameGUI.getChatGUI()
-                .func_146236_a(Mouse.getX(), this.mc.displayHeight - Mouse.getY() - 1);
+                .func_146236_a(Mouse.getX(), Mouse.getY());
         if (hovered == null) {
             return;
         }
